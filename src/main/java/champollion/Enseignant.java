@@ -11,26 +11,21 @@ public class Enseignant extends Personne {
     // Implémentation par une Map
     private final HashMap<UE, ServicePrevu> enseignements = new HashMap<UE, ServicePrevu>();
 
-    // TODO : rajouter les autres méthodes présentes dans le diagramme UML
-
     public Enseignant(String nom, String email) {
         super(nom, email);
     }
 
     private float equivalentTD(TypeIntervention type, int volumeHoraire) {
         float result = 0f;
-        switch (type) {
-            case CM:
-                result = volumeHoraire * 1.5f;
-                break;
-            case TD:
-                result = volumeHoraire;
-                break;
-            case TP:
-                result = volumeHoraire * 0.75f;
-                break;
+        if (type.equals(TypeIntervention.CM)) {
+            result += volumeHoraire * 1.5f;
+        } else if (type.equals(TypeIntervention.TD)) {
+            result += volumeHoraire;
+        } else if (type.equals(TypeIntervention.TP)) {
+            result += volumeHoraire * 0.75f;
         }
-        return result;
+            return result;
+
     }
 
     /**
@@ -40,10 +35,8 @@ public class Enseignant extends Personne {
      *
      * @return le nombre total d'heures "équivalent TD" prévues pour cet enseignant, arrondi à l'entier le plus proche
      */
-    public int heuresPrevues() {
-        // TODO: Implémenter cette méthode
-        //throw new UnsupportedOperationException("Pas encore implémenté");
-        int heures = 0;
+    public float heuresPrevues() {
+        float heures = 0;
         for (UE ue : enseignements.keySet()) {
             heures += heuresPrevuesPourUE(ue);
         }
@@ -63,9 +56,7 @@ public class Enseignant extends Personne {
      * @param ue l'UE concernée
      * @return le nombre total d'heures "équivalent TD" prévues pour cet enseignant, arrondi à l'entier le plus proche
      */
-    public int heuresPrevuesPourUE(UE ue) {
-        // TODO: Implémenter cette méthode
-        //throw new UnsupportedOperationException("Pas encore implémenté");
+    public float heuresPrevuesPourUE(UE ue) {
         float heures = 0;
         ServicePrevu serv = enseignements.get(ue);
         if (serv != null) {
@@ -86,24 +77,20 @@ public class Enseignant extends Personne {
      * @param volumeTP le volume d'heures de TP
      */
     public void ajouteEnseignement(UE ue, int volumeCM, int volumeTD, int volumeTP) {
-        // TODO: Implémenter cette méthode
-        //throw new UnsupportedOperationException("Pas encore implémenté");
-        if (volumeCM >= 0 && volumeTD >= 0 && volumeTP >= 0) {
-            ServicePrevu serv = enseignements.get(ue);
-            if (serv == null) {
-                serv = new ServicePrevu(volumeCM, volumeTD, volumeTD);
-                enseignements.put(ue, serv);
-            } else {
-                serv.setVolumeCM(volumeCM + serv.getVolumeCM());
-                serv.setVolumeTD(volumeTD + serv.getVolumeTD());
-                serv.setVolumeTP(volumeTP + serv.getVolumeTP());
+        if (volumeCM < 0 || volumeTD < 0 || volumeTP < 0)
+            throw new IllegalArgumentException("les heures sont negatives");
 
-            }
+        ServicePrevu serv = enseignements.get(ue);
+        if (serv == null) {
+            serv = new ServicePrevu(volumeCM, volumeTD, volumeTD);
+            enseignements.put(ue, serv);
         } else {
-            throw new UnsupportedOperationException("les heures sont negatives");
+            serv.setVolumeCM(volumeCM + serv.getVolumeCM());
+            serv.setVolumeTD(volumeTD + serv.getVolumeTD());
+            serv.setVolumeTP(volumeTP + serv.getVolumeTP());
         }
-
     }
+
 
     public void ajouteIntervention(Intervention intervention) {
         if (!enseignements.containsKey(intervention.getUe())) {

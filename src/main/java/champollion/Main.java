@@ -13,6 +13,7 @@ public class Main {
         bastide.ajouteEnseignement(web,  8, 20, 30);
         lamine.ajouteEnseignement(bd,   10, 20, 15);
         lamine.ajouteEnseignement(web,  15, 15, 25);
+        //bastide.ajouteEnseignement(uml, -4, 20, 20);
 
         System.out.printf("Mr. %s a un total de %d heures prévues\n", bastide.getNom(), bastide.heuresPrevues());
         System.out.printf("Mr. %s a un total de %d heures prévues\n",  lamine.getNom(),  lamine.heuresPrevues());

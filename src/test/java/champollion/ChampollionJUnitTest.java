@@ -34,7 +34,7 @@ public class ChampollionJUnitTest {
                 
 		assertEquals(10 + 20, untel.heuresPrevuesPourUE(uml),
                          "L'enseignant doit maintenant avoir 30 heures prévues pour l'UE 'uml'");		
-		
+
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class ChampollionJUnitTest {
 		// 20hTP -> 15 équivalent TD
 		untel.ajouteEnseignement(java, 0, 0, 20);
 
-		assertEquals(10+30+15, untel.heuresPrevues());
+		assertEquals(10+30+15, untel.heuresPrevues(),"Les équivalents TD ne calculent pas bien");
 	}
 	
 }
