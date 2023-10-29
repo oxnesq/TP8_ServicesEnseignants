@@ -36,5 +36,26 @@ public class ChampollionJUnitTest {
                          "L'enseignant doit maintenant avoir 30 heures prévues pour l'UE 'uml'");		
 		
 	}
+
+	@Test
+	void ajoutHeuresNegatives() {
+		try {
+			untel.ajouteEnseignement(uml, -5, 0, 0);
+			fail("La valeur est négative mais a ete ajt");
+		} catch (IllegalArgumentException ex) {
+		}
+	}
+
+	@Test
+	void calculService() {
+		// 10hTD -> 10 équivalent TD
+		untel.ajouteEnseignement(uml, 0, 10, 0);
+		// 20hCM -> 30 équivalent TD
+		untel.ajouteEnseignement(uml, 20, 0, 0);
+		// 20hTP -> 15 équivalent TD
+		untel.ajouteEnseignement(java, 0, 0, 20);
+
+		assertEquals(10+30+15, untel.heuresPrevues());
+	}
 	
 }
