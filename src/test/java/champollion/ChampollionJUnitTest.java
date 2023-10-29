@@ -98,6 +98,10 @@ public class ChampollionJUnitTest {
     @Test
     public void testResteAPlanifier() {
         assertEquals(0,untel.resteAPlanifier(new UE("maths"), TypeIntervention.TD), "l enseignant n a pas cette ue");
+        untel.ajouteEnseignement(uml,5,5,5);
+        assertEquals(5,untel.resteAPlanifier(uml, TypeIntervention.TD), "il faut planifier 5 volume de TD");
+        untel.ajouteIntervention(new Intervention(new Date(), 2,5,uml,TypeIntervention.TD));
+        assertEquals(3,untel.resteAPlanifier(uml, TypeIntervention.TD), "il faut planifier 3 volume de TD");
 
     }
 
