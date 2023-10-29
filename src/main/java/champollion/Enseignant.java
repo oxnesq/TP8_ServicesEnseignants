@@ -82,7 +82,7 @@ public class Enseignant extends Personne {
 
         ServicePrevu serv = enseignements.get(ue);
         if (serv == null) {
-            serv = new ServicePrevu(volumeCM, volumeTD, volumeTD);
+            serv = new ServicePrevu(volumeCM, volumeTD, volumeTP);
             enseignements.put(ue, serv);
         } else {
             serv.setVolumeCM(volumeCM + serv.getVolumeCM());
@@ -115,7 +115,13 @@ public class Enseignant extends Personne {
         } else {
             return 0;
         }
+    }
 
+    public HashSet<Intervention> getLesInterventions() {
+        return lesInterventions;
+    }
 
+    public HashMap<UE, ServicePrevu> getEnseignements() {
+        return enseignements;
     }
 }

@@ -7,10 +7,10 @@ public class Intervention {
     private int duree;
     private boolean annulee;
     private int heureDebut;
-    private String ue;
+    private UE ue;
     private TypeIntervention type;
 
-    public Intervention(Date debut, int duree, int heureDebut, String ue,TypeIntervention type) {
+    public Intervention(Date debut, int duree, int heureDebut, UE ue,TypeIntervention type) {
         this.debut = debut;
         this.duree = duree;
         this.annulee = false;
@@ -19,11 +19,11 @@ public class Intervention {
         this.type=type;
     }
 
-    public String getUe() {
+    public UE getUe() {
         return ue;
     }
 
-    public void setUe(String ue) {
+    public void setUe(UE ue) {
         this.ue = ue;
     }
 
